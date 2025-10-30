@@ -3,61 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Friend's Hobby Website</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> <!-- Link to Bootstrap CSS -->
-    <link rel="stylesheet" href="styles.css"> <!-- Your custom CSS file for additional styling -->
+    <title>Hobby Website - Retro Gaming Enthusiast</title>
+    <meta name="description" content="A website dedicated to the world of retro gaming and hobby collecting">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <header class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="container">
-            <a class="navbar-brand" href="#">Hobby Website</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <a class="navbar-brand" href="#home">Hobby Website</a>
+            <button class="navbar-toggler" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                </ul>
-            </div>
+            <ul class="navbar-nav" id="navMenu">
+                <li><a class="nav-link" href="#home">Home</a></li>
+                <li><a class="nav-link" href="#about">About</a></li>
+                <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                <li><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
-    <section class="jumbotron text-center">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
         <div class="container">
-            <h1 class="display-4">Welcome to Our Hobby Website</h1>
+            <h1>Welcome to Our Hobby Website</h1>
             <p class="lead">Discover the World of Retro Gaming</p>
-            <a href="#" class="btn btn-primary btn-lg">Learn More</a>
+            <a href="#about" class="btn btn-primary">Learn More</a>
         </div>
     </section>
 
-    <section class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Stay Updated</h2>
-                <p>Subscribe to our newsletter to receive the latest news and updates.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About Our Passion</h2>
+            <p>Dedicated to preserving and celebrating the golden age of gaming</p>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Welcome to my hobby website! I'm passionate about retro gaming and collecting classic games from the 80s and 90s. This website is a space where I share my collection, experiences, and connect with fellow enthusiasts.</p>
+                    <p>From the iconic Nintendo Entertainment System to the revolutionary PlayStation, I explore the games and consoles that shaped the gaming industry. Join me on this nostalgic journey through gaming history!</p>
+                    <p>Whether you're a seasoned collector or just getting started, there's something here for everyone who appreciates the classics.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/500x400/3498db/ffffff?text=Retro+Gaming+Collection" alt="Retro Gaming Collection">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio/Gallery Section -->
+    <section id="portfolio">
+        <div class="container">
+            <h2>My Collection</h2>
+            <p>Check out some highlights from my retro gaming collection</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/e74c3c/ffffff?text=Classic+Consoles" alt="Classic Consoles">
+                    <div class="gallery-item-content">
+                        <h3>Classic Consoles</h3>
+                        <p>A collection of iconic gaming consoles from the 80s and 90s, including NES, SNES, and Sega Genesis.</p>
                     </div>
-                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/2ecc71/ffffff?text=Rare+Games" alt="Rare Games">
+                    <div class="gallery-item-content">
+                        <h3>Rare Games</h3>
+                        <p>Hard-to-find titles and limited editions that make any collector's heart skip a beat.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/f39c12/ffffff?text=Gaming+Memorabilia" alt="Gaming Memorabilia">
+                    <div class="gallery-item-content">
+                        <h3>Gaming Memorabilia</h3>
+                        <p>Posters, manuals, and other collectibles that bring back the magic of retro gaming.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p>Have questions or want to connect? Send me a message!</p>
+            <div class="contact-content">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" placeholder="Your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
                 </form>
             </div>
-            <div class="col-md-6">
-                <img src="newsletter.jpg" alt="Newsletter" class="img-fluid">
-            </div>
         </div>
     </section>
 
-    <footer class="text-center bg-light p-3">
-        <p>&copy; 2024 Friend's Hobby Website</p>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Hobby Website - Retro Gaming Enthusiast. All rights reserved.</p>
+        </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> <!-- jQuery -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script> <!-- Popper.js -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
+    <!-- JavaScript for Mobile Menu -->
+    <script>
+        // Mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        navToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Form submission handler
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! This is a demo form - in a real website, this would send your message.');
+            contactForm.reset();
+        });
+
+        // Smooth scroll behavior (fallback for older browsers)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
