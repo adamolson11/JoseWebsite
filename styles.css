@@ -348,6 +348,26 @@ footer {
     padding: 30px 20px;
 }
 
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.footer-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+    opacity: 0.9;
+}
+
+.footer-links a:hover {
+    color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
 footer p {
     color: var(--white);
     opacity: 0.8;
