@@ -6,6 +6,10 @@
     <title>Sitio de Pasatiempo - Entusiasta de Juegos Retro</title>
     <meta name="description" content="Un sitio web dedicado a la reparación y restauración de dispositivos de juegos retro">
     <link rel="stylesheet" href="styles.css">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -101,6 +105,10 @@
                         <input type="email" class="form-control" id="email" placeholder="tu.correo@ejemplo.com" required>
                     </div>
                     <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Tu número de teléfono" required>
+                    </div>
+                    <div class="form-group">
                         <label for="message">Mensaje</label>
                         <textarea class="form-control" id="message" placeholder="Tu mensaje aquí..." required></textarea>
                     </div>
@@ -140,19 +148,88 @@
             });
         });
 
+        // Configuration - Replace these with your actual credentials
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const EMAILJS_PUBLIC_KEY = 'YOUR_EMAILJS_PUBLIC_KEY';
+        const EMAILJS_SERVICE_ID = 'YOUR_EMAILJS_SERVICE_ID';
+        const EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID';
+
+        // Initialize EmailJS
+        if (EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+        }
+
+        // Initialize Supabase
+        let supabaseClient = null;
+        if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY') {
+            const { createClient } = supabase;
+            supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+
         // Form submission handler
         const contactForm = document.getElementById('contactForm');
         const formMessage = document.getElementById('formMessage');
         
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Show success message
-            formMessage.textContent = '¡Gracias por tu mensaje! Este es un formulario de demostración - en un sitio web real, esto enviaría tu mensaje.';
-            formMessage.className = 'form-message success show';
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
             
-            // Reset form
-            contactForm.reset();
+            // Show loading message
+            formMessage.textContent = 'Enviando mensaje...';
+            formMessage.className = 'form-message info show';
+            
+            try {
+                // Save to Supabase database
+                if (supabaseClient) {
+                    const { data, error } = await supabaseClient
+                        .from('contact_submissions')
+                        .insert([
+                            { 
+                                name: name,
+                                email: email,
+                                phone: phone,
+                                message: message,
+                                submitted_at: new Date().toISOString()
+                            }
+                        ]);
+                    
+                    if (error) {
+                        console.error('Supabase error:', error);
+                        throw new Error('Error al guardar en la base de datos');
+                    }
+                }
+                
+                // Send email notification via EmailJS
+                if (EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+                    const templateParams = {
+                        from_name: name,
+                        from_email: email,
+                        phone: phone,
+                        message: message,
+                        to_name: 'Business Owner'
+                    };
+                    
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+                }
+                
+                // Show success message
+                formMessage.textContent = '¡Gracias por tu mensaje! Te contactaremos pronto.';
+                formMessage.className = 'form-message success show';
+                
+                // Reset form
+                contactForm.reset();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                formMessage.textContent = 'Hubo un error al enviar tu mensaje. Por favor, intenta de nuevo.';
+                formMessage.className = 'form-message error show';
+            }
             
             // Hide message after 5 seconds
             setTimeout(function() {
