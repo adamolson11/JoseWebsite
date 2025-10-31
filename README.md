@@ -11,15 +11,24 @@ A modern, responsive hero layout website dedicated to retro gaming and hobby col
 - Full-screen hero section with gradient background
 - Responsive navigation with mobile hamburger menu
 - Portfolio gallery showcase
-- Working contact form with inline feedback
+- **Contact form with database storage and email notifications**
 - Smooth scrolling between sections
 - Mobile-first responsive design
-- No external dependencies
+- Integrated with Supabase (database) and EmailJS (email)
 
 ## 🚀 Quick Start
 1. Clone this repository
 2. Open `index.html` in your browser
 3. That's it! No build process needed.
+
+## 📧 Contact Form Setup
+The contact form now includes:
+- Database storage for submissions (name, email, phone, message)
+- Email notifications sent to your business email
+
+**To activate these features**, follow the setup guide: [SETUP.md](SETUP.md)
+
+Without setup, the form will still work but won't store data or send emails.
 
 ## 🔗 Links
 - GitHub Repository: [https://github.com/adamolson11/JoseWebsite](https://github.com/adamolson11/JoseWebsite)
