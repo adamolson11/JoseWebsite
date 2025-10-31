@@ -185,6 +185,8 @@ const EMAILJS_TEMPLATE_ID = 'template_xxxxx';
 ⚠️ **Important Security Information:**
 
 1. **Public Keys are Safe**: The Supabase anon key and EmailJS public key can be safely exposed in client-side code. They have limited permissions.
+   - These are designed to be public and used in browsers
+   - However, never expose your Supabase service_role key or EmailJS private keys
 
 2. **Row Level Security**: The Supabase setup includes RLS policies that:
    - Allow anyone to INSERT new submissions
@@ -192,6 +194,15 @@ const EMAILJS_TEMPLATE_ID = 'template_xxxxx';
    - This means visitors can submit forms but can't view others' submissions
 
 3. **Email Rate Limiting**: EmailJS free tier has a limit of 100 emails/month. For higher volume, upgrade your plan.
+
+4. **Client-Side Code**: The credentials in `index.html` will be visible to anyone who views the page source. This is intentional and safe for the anon/public keys, but:
+   - Never put private keys or passwords in client-side code
+   - Consider adding reCAPTCHA to prevent spam/abuse
+   - Monitor your Supabase and EmailJS usage dashboards
+
+5. **CDN Security**: The implementation loads libraries from CDNs. For production:
+   - Consider adding Subresource Integrity (SRI) hashes to script tags
+   - Or host the libraries locally for more control
 
 ---
 

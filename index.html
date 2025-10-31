@@ -149,6 +149,10 @@
         });
 
         // Configuration - Replace these with your actual credentials
+        // NOTE: These are PUBLIC keys designed to be exposed in client-side code.
+        // They have limited permissions (anon key for Supabase, public key for EmailJS).
+        // Row Level Security in Supabase protects your data.
+        // See SETUP.md for more details.
         const SUPABASE_URL = 'YOUR_SUPABASE_URL';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
         const EMAILJS_PUBLIC_KEY = 'YOUR_EMAILJS_PUBLIC_KEY';
@@ -185,49 +189,81 @@
             formMessage.className = 'form-message info show';
             
             try {
+                let dbSaved = false;
+                let emailSent = false;
+                
                 // Save to Supabase database
                 if (supabaseClient) {
-                    const { data, error } = await supabaseClient
-                        .from('contact_submissions')
-                        .insert([
-                            { 
-                                name: name,
-                                email: email,
-                                phone: phone,
-                                message: message,
-                                submitted_at: new Date().toISOString()
-                            }
-                        ]);
-                    
-                    if (error) {
-                        console.error('Supabase error:', error);
-                        throw new Error('Error al guardar en la base de datos');
+                    try {
+                        const { data, error } = await supabaseClient
+                            .from('contact_submissions')
+                            .insert([
+                                { 
+                                    name,
+                                    email,
+                                    phone,
+                                    message,
+                                    submitted_at: new Date().toISOString()
+                                }
+                            ]);
+                        
+                        if (error) {
+                            console.error('Supabase error:', error);
+                            throw error;
+                        }
+                        dbSaved = true;
+                    } catch (dbError) {
+                        console.error('Error saving to database:', dbError);
+                        // Continue to try sending email even if database fails
                     }
                 }
                 
                 // Send email notification via EmailJS
                 if (EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
-                    const templateParams = {
-                        from_name: name,
-                        from_email: email,
-                        phone: phone,
-                        message: message,
-                        to_name: 'Business Owner'
-                    };
-                    
-                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+                    try {
+                        const templateParams = {
+                            from_name: name,
+                            from_email: email,
+                            phone: phone,
+                            message: message,
+                            to_name: 'Business Owner'
+                        };
+                        
+                        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+                        emailSent = true;
+                    } catch (emailError) {
+                        console.error('Error sending email:', emailError);
+                        // Don't fail if email service isn't configured
+                    }
                 }
                 
-                // Show success message
-                formMessage.textContent = '¡Gracias por tu mensaje! Te contactaremos pronto.';
-                formMessage.className = 'form-message success show';
-                
-                // Reset form
-                contactForm.reset();
+                // Show appropriate success message based on what succeeded
+                if (supabaseClient || EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+                    if (dbSaved || emailSent) {
+                        formMessage.textContent = '¡Gracias por tu mensaje! Te contactaremos pronto.';
+                        formMessage.className = 'form-message success show';
+                        contactForm.reset();
+                    } else {
+                        throw new Error('No se pudo procesar el mensaje');
+                    }
+                } else {
+                    // Services not configured - show demo message
+                    formMessage.textContent = '¡Gracias por tu mensaje! (Modo demostración - configura los servicios para almacenar mensajes)';
+                    formMessage.className = 'form-message success show';
+                    contactForm.reset();
+                }
                 
             } catch (error) {
-                console.error('Error:', error);
-                formMessage.textContent = 'Hubo un error al enviar tu mensaje. Por favor, intenta de nuevo.';
+                console.error('Form submission error:', error);
+                let errorMsg = 'Hubo un error al enviar tu mensaje.';
+                
+                if (!navigator.onLine) {
+                    errorMsg = 'No hay conexión a Internet. Por favor, verifica tu conexión e intenta de nuevo.';
+                } else if (error.message && error.message.includes('fetch')) {
+                    errorMsg = 'No se pudo conectar con el servicio. Por favor, intenta de nuevo más tarde.';
+                }
+                
+                formMessage.textContent = errorMsg;
                 formMessage.className = 'form-message error show';
             }
             
