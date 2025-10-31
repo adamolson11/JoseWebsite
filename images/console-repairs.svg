@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="consoleBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#consoleBg)"/>
+  
+  <!-- Game console representation -->
+  <rect x="200" y="180" width="400" height="240" fill="rgba(0,0,0,0.3)" rx="10"/>
+  <rect x="210" y="190" width="380" height="220" fill="rgba(255,255,255,0.9)" rx="8"/>
+  
+  <!-- Buttons -->
+  <circle cx="350" cy="280" r="30" fill="#e74c3c"/>
+  <circle cx="450" cy="280" r="30" fill="#3498db"/>
+  <circle cx="400" cy="340" r="25" fill="#2ecc71"/>
+  
+  <!-- D-pad -->
+  <rect x="260" y="280" width="60" height="20" fill="#34495e" rx="5"/>
+  <rect x="280" y="260" width="20" height="60" fill="#34495e" rx="5"/>
+  
+  <!-- Tool icons -->
+  <line x1="520" y1="250" x2="570" y2="300" stroke="rgba(255,255,255,0.8)" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="545" cy="275" r="15" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="4"/>
+</svg>

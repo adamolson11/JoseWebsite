@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="modsBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e67e22;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#modsBg)"/>
+  
+  <!-- Tools representation -->
+  <!-- Screwdriver -->
+  <rect x="250" y="200" width="15" height="180" fill="rgba(255,255,255,0.9)" rx="7"/>
+  <polygon points="250,370 257.5,395 265,370" fill="rgba(200,200,200,0.9)"/>
+  <circle cx="257.5" cy="190" r="20" fill="rgba(255,100,100,0.9)"/>
+  
+  <!-- Wrench -->
+  <rect x="320" y="220" width="120" height="25" fill="rgba(255,255,255,0.9)" rx="12" transform="rotate(-30 380 232.5)"/>
+  <circle cx="320" cy="232.5" r="30" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="20"/>
+  
+  <!-- Soldering iron -->
+  <line x1="480" y1="250" x2="540" y2="350" stroke="rgba(255,255,255,0.9)" stroke-width="18" stroke-linecap="round"/>
+  <polygon points="540,350 548,368 532,368" fill="rgba(150,150,150,0.9)"/>
+  <circle cx="480" cy="250" r="15" fill="rgba(255,100,100,0.9)"/>
+  
+  <!-- Settings/Modification icon -->
+  <circle cx="400" cy="450" r="50" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="6"/>
+  <circle cx="400" cy="450" r="25" fill="rgba(255,255,255,0.5)"/>
+  <line x1="400" y1="395" x2="400" y2="415" stroke="rgba(255,255,255,0.5)" stroke-width="8"/>
+  <line x1="400" y1="485" x2="400" y2="505" stroke="rgba(255,255,255,0.5)" stroke-width="8"/>
+  <line x1="345" y1="450" x2="365" y2="450" stroke="rgba(255,255,255,0.5)" stroke-width="8"/>
+  <line x1="435" y1="450" x2="455" y2="450" stroke="rgba(255,255,255,0.5)" stroke-width="8"/>
+</svg>
